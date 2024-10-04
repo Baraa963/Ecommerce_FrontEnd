@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
-// src/context/ProductsContext.js
-import { createContext, useState } from 'react';
+import { createContext, useState, useContext } from "react";
 
-// Context'i oluştur
-export const ProductsContext = createContext();
+// Create a Context for products
+const ProductsContext = createContext();
 
-// Provider bileşenini oluştur
+export const useProducts = () => useContext(ProductsContext);
+
+// Create a Provider to share products state
 export const ProductsProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
 

@@ -8,6 +8,8 @@ import Menu from "@mui/material/Menu";
 import { ExpandMore } from "@mui/icons-material";
 import { useTheme } from "@emotion/react";
 import axios from "axios";
+import { useProducts } from "../../contexts/ProductsContext";
+import { Link } from "react-router-dom";
 
 export default function Menu_List() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -18,12 +20,9 @@ export default function Menu_List() {
   };
 
   const handleMenuItemClick = (event, index) => {
-    // Eğer seçilen kategori 'Products' ise işlem yapma
     if (options[index] !== "Products") {
       setSelectedIndex(index);
       setAnchorEl(null);
-
-      // Seçilen kategoriye göre ürünleri filtrele
       fetchFilteredProducts(options[index]);
     }
   };
@@ -37,45 +36,45 @@ export default function Menu_List() {
   const [categoryData, setCategoryData] = useState([]);
   const [options, setOptions] = useState([]);
 
-  const [products, setProducts] = useState([]); // API'den dönen ürünler için state
+  const { setProducts } = useProducts(); // Get setProducts from context
+
   const fetchFilteredProducts = async (categoryTitle) => {
     try {
       const response = await axios.get(
         "http://127.0.0.1:8000/api/filteredProducts",
         {
           params: {
-            title: categoryTitle, // Eğer 'All products' seçildiyse tüm ürünleri getir
+            title: categoryTitle,
           },
         }
       );
 
-      setProducts(response.data); // API'den gelen ürünleri state'e kaydet
-      console.log(response.data);
+      setProducts(response.data); // Save products to context
+      // console.log(response.data); // Log products to console
     } catch (err) {
-      console.error("Filtrelenmiş ürünleri alırken hata oluştu:", err);
+      console.error("Error fetching filtered products:", err);
     }
   };
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchCategories = async () => {
       try {
         const responseCategory = await axios.get(
           `http://127.0.0.1:8000/api/${categoryQuery}`
         );
-        // Benzersiz kategorileri almak için Set kullanıldı
         const uniqueCategories = [
-          "Products", // 'Products' görünür kalacak
+          "Products",
           "All products",
           ...new Set(responseCategory.data),
         ];
         setCategoryData(uniqueCategories);
         setOptions(uniqueCategories);
       } catch (err) {
-        console.error("API çağrısı sırasında hata oluştu:", err);
+        console.error("Error fetching categories:", err);
       }
     };
 
-    fetchProducts();
+    fetchCategories();
   }, []);
 
   return (
@@ -100,14 +99,14 @@ export default function Menu_List() {
           onClick={handleClickListItem}
         >
           <ListItemText
-            
             secondary={options[selectedIndex]}
             sx={{
-              width: 90,
+              width: 100,
               textAlign: "center",
               "&:hover:": { cursor: "pointer" },
             }}
           />
+
           <ExpandMore sx={{ bgcolor: theme.palette.ListColor.main }} />
         </ListItem>
       </List>
@@ -122,15 +121,19 @@ export default function Menu_List() {
         }}
       >
         {options.map((option, index) => (
-          <MenuItem
-            sx={{ fontSize: "14px" }}
-            key={option}
-            selected={index === selectedIndex}
-            onClick={(event) => handleMenuItemClick(event, index)}
-            disabled={option === "Products"} // 'Products' seçilemez olacak
-          >
-            {option}
-          </MenuItem>
+          <>
+            <Link to="/products" style={{textDecoration:"none",color: theme.palette.text.primary}}>
+              <MenuItem
+             sx={{ fontSize: "14px" }}
+             key={option}
+             selected={index === selectedIndex}
+             onClick={(event) => handleMenuItemClick(event, index)}
+             disabled={option === "Products"}
+              >
+                {option}
+              </MenuItem>
+            </Link>
+          </>
         ))}
       </Menu>
     </div>

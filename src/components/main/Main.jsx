@@ -22,8 +22,17 @@ import { Close } from "@mui/icons-material";
 import ProductDetails from "./ProductDetails";
 import { AnimatePresence, motion } from "framer-motion";
 import axios from "axios";
+import { useProducts } from "../../contexts/ProductsContext.jsx";
 
 export default function Main() {
+
+  const { products } = useProducts(); // Get products from context
+
+  useEffect(() => {
+    // console.log(products); // Log the shared products to console
+  }, [products]);
+
+
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 

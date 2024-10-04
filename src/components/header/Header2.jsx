@@ -21,10 +21,10 @@ export default function Header2() {
     },
     marginLeft: 0,
     minwidth: "266px",
-    height: "45px",
+    height: "46px",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
-      width: "330px",
+      width: "50%",
     },
   }));
 
