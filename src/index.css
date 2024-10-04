@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+* {
+  font-family: "Nunito Sans", sans-serif;
+}
+.border {
+  border: 2px solid red !important;
+}
+.mainButtons {
+  border-radius: 5px !important;
+  border: 1px solid #888 !important;
+  text-transform: capitalize !important;
+  padding-top: 7px !important;
+  padding-bottom: 7px !important;
+  font-size: 16px !important;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+
+* {
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.border {
+  border: 2px solid red !important;
+}
+
+.mainButtons {
+  border-radius: 5px !important;
+  border: 1px solid #888 !important;
+  text-transform: capitalize !important;
+  padding-top: 7px !important;
+  padding-bottom: 7px !important;
+  font-size: 16px !important;
+}
+
+/* WebKit tarayıcıları (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 0.7rem; /* Kaydırma çubuğu genişliği */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #d4d4d8; /* Kaydırma izi arka planı */
+  border-radius: 12px; 
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #777; /* Kaydırma çubuğu rengi */
+  border-radius: 12px; /* Köşeleri yuvarlama */
+  border: 2px solid transparent; /* Daha düzgün bir görünüm için */
+  background-clip: padding-box; /* Yuvarlak kenarları daha belirgin yapmak için */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #888; /* Üzerine gelince renk değişimi */
+}
+
+/* Firefox için */
+html {
+  scrollbar-color: #777 #888; /* Kaydırma çubuğu rengi (#9e4673) ve iz rengi (#3d4a59) */
+  scrollbar-width: thin; /* Kaydırma çubuğu genişliği 'thin' veya 'auto' olabilir */
+  scroll-behavior: smooth;
+}
+@media (max-width:600px) {
+  .box-img img {
+      width: 60%; 
+      padding: auto;
+      margin: auto;     
+    }
+}
+@media (max-width:900px) {
+  .box-img img {
+      width: 50%; 
+      padding: auto;
+      margin: auto;     
+    }
+}
+
+
