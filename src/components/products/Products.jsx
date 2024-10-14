@@ -15,19 +15,18 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useProducts } from "../../contexts/ProductsContext.jsx";
 import Footer from "../footer/Footer";
+import { useGetAllProductsQuery } from "../../Redux/products.js";
+// import { useGetProductsByNameQuery } from "../../Redux/products.js";
 
 export default function Products() {
-  const { products } = useProducts(); // Get products from context
+  // const { products } = useProducts(); // Get products from context
 
-  useEffect(() => {
-    console.log(products); // Log the shared products to console
-  }, [products]);
+  const { data: products, error, isLoading } = useGetAllProductsQuery();
 
-  const [open, setOpen] = useState(false);
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  console.table(products);
 
   return (
     <>
@@ -68,7 +67,7 @@ export default function Products() {
                       height: 270,
                       objectFit: "cover",
                     }}
-                    image={item.productImg}
+                    image={item.images[0]}
                     title={item.productTitle}
                   />
 
