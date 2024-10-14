@@ -17,7 +17,7 @@ export default function Header2() {
     transition: "ease-in 0.3s",
     "&:hover": {
       border: "1px solid #333",
-      background: "#555",
+      background: "#999",
     },
     marginLeft: 0,
     minwidth: "266px",

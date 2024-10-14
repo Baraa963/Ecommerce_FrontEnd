@@ -121,11 +121,11 @@ export default function Menu_List() {
         }}
       >
         {options.map((option, index) => (
-          <>
-            <Link to="/products" style={{textDecoration:"none",color: theme.palette.text.primary}}>
+          
+            <Link key={option} to="/products" style={{textDecoration:"none",color: theme.palette.text.primary}}>
               <MenuItem
              sx={{ fontSize: "14px" }}
-             key={option}
+             
              selected={index === selectedIndex}
              onClick={(event) => handleMenuItemClick(event, index)}
              disabled={option === "Products"}
@@ -133,7 +133,7 @@ export default function Menu_List() {
                 {option}
               </MenuItem>
             </Link>
-          </>
+          
         ))}
       </Menu>
     </div>
