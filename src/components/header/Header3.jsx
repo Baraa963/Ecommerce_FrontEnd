@@ -31,6 +31,7 @@ import { useTheme } from "@emotion/react";
 import { ArrowDownwardOutlined } from "@mui/icons-material";
 import HeaderLinks from "./HeaderLinks";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Header3() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -156,8 +157,29 @@ export default function Header3() {
       </Box>
       {useMediaQuery("(min-width:1200px)") && (
         <Stack gap={4} direction={"row"} alignItems={"center"}>
+          <Link
+            to="/"
+            style={{
+              textDecoration: "none",
+              color: theme.palette.text.primary,
+            }}
+          >
           <HeaderLinks title={"Home"} />
-          <HeaderLinks title={"Mega Menu"} />
+
+          </Link>
+
+          <Link
+            to="/Addproducts"
+            style={{
+              textDecoration: "none",
+              color: theme.palette.text.primary,
+            }}
+          >
+         <HeaderLinks title={"Add Product"} />
+
+          </Link>
+
+          
           <HeaderLinks title={"Full Screen Menu"} />
           <HeaderLinks title={"Pages"} />
           <HeaderLinks title={"User Account"} />

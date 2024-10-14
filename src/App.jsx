@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
 import { ProductsProvider } from "./contexts/ProductsContext.jsx";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Products from "./components/products/Products.jsx";
+import AddProduct from "./components/addProduct/AddProduct.jsx";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -44,7 +45,22 @@ function App() {
                     </Box>
                   }
                 />
-                <Route path="/products" element={<Products />} />
+                <Route
+                  path="/products"
+                  element={
+                    <Box bgcolor={theme.palette.bg.main}>
+                      <Products />
+                    </Box>
+                  }
+                />
+                <Route
+                  path="/addproducts"
+                  element={
+                    <Box bgcolor={theme.palette.bg.main}>
+                      <AddProduct />
+                    </Box>
+                  }
+                />
               </Routes>
 
               <ScrollToTop />
