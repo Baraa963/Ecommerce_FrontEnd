@@ -18,6 +18,8 @@ import Footer from "../footer/Footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Send } from "@mui/icons-material";
+import { toast, ToastContainer } from "react-toastify"; // Import Toastify
+import "react-toastify/dist/ReactToastify.css"; // Import CSS
 
 export default function AddProduct() {
   const theme = useTheme();
@@ -29,7 +31,7 @@ export default function AddProduct() {
     productPrice: "",
     productRating: "",
     productCategory: "",
-    productDescription: "",
+    productDiscription: "",
     productImg: "",
   });
 
@@ -39,7 +41,6 @@ export default function AddProduct() {
         const responseCategory = await axios.get(
           `http://127.0.0.1:8000/api/${categoryQuery}`
         );
-        // Get unique categories
         const uniqueCategories = [...new Set(responseCategory.data)];
         setOptions(uniqueCategories);
       } catch (err) {
@@ -56,20 +57,33 @@ export default function AddProduct() {
         "http://127.0.0.1:8000/api/newProduct",
         {
           productTitle: newProduct.productTitle,
-          productPrice: parseFloat(newProduct.productPrice), // Burayı kontrol edin
-          productDescription: newProduct.productDescription,
-          productRating: newProduct.productRating,
+          productPrice: parseFloat(newProduct.productPrice),
+          productDiscription: newProduct.productDiscription,
+          productRating: parseFloat(newProduct.productRating),
           productCategory: newProduct.productCategory,
-          productImg: newProduct.productImg,
+          productImg: newProduct.productImg || null,
         }
       );
       console.log("Product added successfully:", response.data);
+
+      // Show success toast
+      toast.success("Product added successfully!");
+
+      // Reset the form fields
+      setNewProduct({
+        productTitle: "",
+        productPrice: "",
+        productRating: "",
+        productCategory: "",
+        productDiscription: "",
+        productImg: "",
+      });
     } catch (error) {
-      console.error("Error adding product:", error.response.data); // Hata yanıtını göster
+      console.error("Error adding product:", error.response.data);
+      toast.error("Error adding product."); // Show error toast
     }
   };
 
-  
   return (
     <>
       <Container sx={{ mt: 3.5, textAlign: "start" }}>
@@ -171,11 +185,11 @@ export default function AddProduct() {
                 rows={4}
                 placeholder="Enter product description here"
                 fullWidth
-                value={newProduct.productDescription}
+                value={newProduct.productDiscription}
                 onChange={(e) =>
                   setNewProduct({
                     ...newProduct,
-                    productDescription: e.target.value,
+                    productDiscription: e.target.value,
                   })
                 }
               />
@@ -207,6 +221,20 @@ export default function AddProduct() {
           </Box>
         </Box>
       </Container>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition:Bounce
+        
+      />
       <Footer />
     </>
   );

@@ -9,67 +9,74 @@ import Main from "./components/main/Main";
 import Footer from "./components/footer/Footer";
 import ScrollToTop from "./components/scroll/ScrollToTop";
 import { motion } from "framer-motion";
-import { ProductsProvider } from "./contexts/ProductsContext.jsx";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Products from "./components/products/Products.jsx";
-import AddProduct from "./components/addProduct/AddProduct.jsx";
+import { ProductsProvider } from "./contexts/ProductsContext";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import Products from "./components/products/Products";
+import AddProduct from "./components/addProduct/AddProduct";
+import Login from "./components/login/Login";
+import SignUp from "./components/signUp/SignUp";
 
 function App() {
   const [theme, colorMode] = useMode();
+  const location = useLocation(); // الحصول على المسار الحالي
+
+  const isAuthRoute =
+    location.pathname === "/login" || location.pathname === "/signUp";
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <ProductsProvider>
           <CssBaseline />
-          <Router>
-            <motion.div
-              key={theme.palette.mode}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1.5 }}
-            >
-              <Header1 />
-              <Header2 />
-              <Header3 />
+          <motion.div
+            key={theme.palette.mode}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.5 }}
+          >
+            {/* عرض الهيدرات فقط إذا لم يكن المسار هو /login */}
+            {!isAuthRoute && (
+              <>
+                <Header1 />
+                <Header2 />
+                <Header3 />
+              </>
+            )}
 
-              {/* Define your Routes here */}
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <Box bgcolor={theme.palette.bg.main}>
-                      <Hero />
-                      <Main />
-                      <Footer />
-                    </Box>
-                  }
-                />
-                <Route
-                  path="/products"
-                  element={
-                    <Box bgcolor={theme.palette.bg.main}>
-                      <Products />
-                    </Box>
-                  }
-                />
-                <Route
-                  path="/addproducts"
-                  element={
-                    <Box bgcolor={theme.palette.bg.main}>
-                      <AddProduct />
-                    </Box>
-                  }
-                />
-              </Routes>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Box bgcolor={theme.palette.bg.main}>
+                    <Hero />
+                    <Main />
+                    <Footer />
+                  </Box>
+                }
+              />
+              <Route path="/products" element={<Products />} />
+              <Route path="/addproducts" element={<AddProduct />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signUp" element={<SignUp />} />
+            </Routes>
 
-              <ScrollToTop />
-            </motion.div>
-          </Router>
+            <ScrollToTop />
+          </motion.div>
         </ProductsProvider>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
 }
 
-export default App;
+export default function AppWrapper() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}

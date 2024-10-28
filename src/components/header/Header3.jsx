@@ -28,7 +28,7 @@ import DevicesOutlinedIcon from "@mui/icons-material/DevicesOutlined";
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme } from "@emotion/react";
-import { ArrowDownwardOutlined } from "@mui/icons-material";
+import { ArrowDownwardOutlined, ShoppingCartOutlined } from "@mui/icons-material";
 import HeaderLinks from "./HeaderLinks";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -88,75 +88,17 @@ export default function Header3() {
       sx={{
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between",
+        justifyContent: "space-around",
         mt: 3,
       }}
     >
-      <Box>
-        <Button
-          id="basic-button"
-          aria-controls={open ? "basic-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          onClick={handleClick}
-          sx={{
-            width: "222px",
-            bgcolor: theme.palette.ListColor.main,
-            color: theme.palette.text.secondary,
-          }}
-        >
-          <WindowIcon />
-          <Typography sx={{ p: 0, textTransform: "capitalize", ml: 1 }}>
-            Categories
-          </Typography>
-          <Box flexGrow={1} />
-          <KeyboardArrowRightIcon />
-        </Button>
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-          sx={{
-            ".MuiPaper-root": {
-              width: 220,
-              bgcolor: theme.palette.ListColor.main,
-            },
-          }}
-        >
-          {options.map((option, index) => (
-            <MenuItem onClick={handleClose} key={index}>
-              <ListItemText>{option}</ListItemText>
-            </MenuItem>
-          ))}
-
-          {/* <MenuItem onClick={handleClose}>
-            <ListItemIcon>
-              <DevicesOutlinedIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>Electronics</ListItemText>
-          </MenuItem>
-
-          <MenuItem onClick={handleClose}>
-            <ListItemIcon>
-              <MenuBookOutlinedIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>Books</ListItemText>
-          </MenuItem>
-
-          <MenuItem onClick={handleClose}>
-            <ListItemIcon>
-              <SportsEsportsOutlinedIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>Games</ListItemText>
-          </MenuItem> */}
-        </Menu>
-      </Box>
+       <Stack alignItems={"center"}sx={{ml:1.5}}>
+        <ShoppingCartOutlined />
+        <Typography variant="body2">E-commerce</Typography>
+      </Stack>
+      <Box flexGrow={1}/>
       {useMediaQuery("(min-width:1200px)") && (
-        <Stack gap={4} direction={"row"} alignItems={"center"}>
+        <Stack  gap={7} direction={"row"} alignItems={"center"}>
           <Link
             to="/"
             style={{
@@ -164,8 +106,7 @@ export default function Header3() {
               color: theme.palette.text.primary,
             }}
           >
-          <HeaderLinks title={"Home"} />
-
+            <HeaderLinks title={"Home"} />
           </Link>
 
           <Link
@@ -175,11 +116,9 @@ export default function Header3() {
               color: theme.palette.text.primary,
             }}
           >
-         <HeaderLinks title={"Add Product"} />
-
+            <HeaderLinks title={"Add Product"} />
           </Link>
 
-          
           <HeaderLinks title={"Full Screen Menu"} />
           <HeaderLinks title={"Pages"} />
           <HeaderLinks title={"User Account"} />

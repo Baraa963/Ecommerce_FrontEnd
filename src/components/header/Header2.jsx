@@ -1,5 +1,4 @@
-import { ShoppingCartOutlined } from "@mui/icons-material";
-import { Container, IconButton, Stack, Typography } from "@mui/material";
+import { Container, IconButton, Stack } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
@@ -7,6 +6,7 @@ import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Menu_List from "./Menu_List";
+import { Link } from "react-router-dom";
 
 export default function Header2() {
   const Search = styled("div")(({ theme }) => ({
@@ -20,11 +20,11 @@ export default function Header2() {
       background: "#999",
     },
     marginLeft: 0,
-    minwidth: "266px",
+    minWidth: "266px", // Fixed typo here (minwidth to minWidth)
     height: "46px",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
-      width: "50%",
+      width: "80%",
     },
   }));
 
@@ -44,7 +44,6 @@ export default function Header2() {
     width: "100%",
     "& .MuiInputBase-input": {
       padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)})`,
       transition: theme.transitions.create("width"),
       [theme.breakpoints.up("sm")]: {
@@ -55,6 +54,7 @@ export default function Header2() {
       },
     },
   }));
+
   const StyledBadge = styled(Badge)(({ theme }) => ({
     "& .MuiBadge-badge": {
       right: -3,
@@ -64,14 +64,8 @@ export default function Header2() {
     },
   }));
 
-
   return (
     <Container sx={{ my: 3, display: "flex", justifyContent: "space-between" }}>
-      <Stack alignItems={"center"}sx={{ml:0.7}}>
-        <ShoppingCartOutlined />
-        <Typography variant="body2">E-commerce</Typography>
-      </Stack>
-
       <Search
         sx={{
           borderRadius: "22px",
@@ -97,7 +91,9 @@ export default function Header2() {
           </StyledBadge>
         </IconButton>
         <IconButton>
-          <Person2OutlinedIcon />
+          <Link to="/signUp" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Person2OutlinedIcon />
+          </Link>
         </IconButton>
       </Stack>
     </Container>
